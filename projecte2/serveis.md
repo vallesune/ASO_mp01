@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Pt.1 Serveis D'inici"
-permalink: projecte2/sprint1/
+permalink: projecte2/serveis/
 ---
 
 ## jjjj

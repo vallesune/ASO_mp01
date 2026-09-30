@@ -4,9 +4,9 @@ title: "Pt.1 Serveis D'inici"
 permalink: projecte2/serveis/
 ---
 
-## jjjj
+## Serveis d'Inici
 
-Serveis d'inici
+Targets i services
 
 comandes
 ...
@@ -39,3 +39,45 @@ fer target nom propi
 fer depemdem
 farem default
 tindra un .service que cridara un script per permisos root
+
+
+Targets i serveis (doc)
+
+Creem el nostre servei propi a nivell usuari 
+nano ~/.config/systemd/user/valle.service
+(cont)
+[Unit]
+Description=Servei de captura de pantalla
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=%h/.config/valle.sh
+
+
+Despres creem de la mateixa manera el nostre target a nivell user
+nano ~/.config/systemd/user/valle.target
+(cont)
+[Unit]
+Description=Target de monitoritzacio
+Requires=graphical-session.target
+After=graphical-session.target
+
+Wants=valle.service
+
+[Install]
+WantedBy=default.target
+
+
+Guardem el target i reiniciem el dimoni
+systemctl --user daemon-reload
+
+Podem comprovar que existeixen 
+systemctl --user list-unit-files | grep valle
+
+Iniciem el target al moment i comprovem que apareix actiu
+systemctl --user start valle.target
+systemctl --user status valle.target
+
